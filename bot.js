@@ -1,5 +1,7 @@
 const { Client } = require('whatsapp-web.js');
+const express = require('express');
 const client = new Client();
+const app = express();
 
 // Contador para flood
 const messageCount = {};
@@ -82,3 +84,13 @@ client.on('message', async (msg) => {
 });
 
 client.initialize();
+
+// ✅ Servidor HTTP para manter o Koyeb online
+app.get('/', (req, res) => {
+    res.send('Bot do WhatsApp está rodando com sucesso!');
+});
+
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+    console.log(`Servidor HTTP rodando na porta ${PORT}`);
+});
